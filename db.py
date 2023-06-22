@@ -24,6 +24,7 @@ class database:
     
     def execute(self, query, params):
         cursor = self.db.cursor()
+        logging.info("STARTING QUERY")
         cursor.execute(query, params)
         results = cursor.fetchall() #VERY INNEFICIENT LOADS EVERYTHING INTO MEMORY
         logging.info("QUERY RESULT:", results)
