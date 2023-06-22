@@ -33,10 +33,9 @@ def query_keywords(keywords: list[str]):
 
 
 def generate_keyword_query_string(keywords):
-    query = ("SELECT * FROM paper NATURAL JOIN keywords")
-    # formatted_portion = ["word = %s "] * len(keywords)
-    # query_params = "OR ".join(formatted_portion)
-
+    formatted_portion = ["word = %s "] * len(keywords)
+    query_params = "OR ".join(formatted_portion)
+    query = ("SELECT * FROM paper NATURAL JOIN keywords WHERE" + query_params)
     return query
 
     
