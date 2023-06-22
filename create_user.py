@@ -8,7 +8,7 @@ from db import database
 def insert_user(name, email, hashedpass):
     try:
         log = logging.getLogger(__name__)
-        log.error("HELLOE PLEASE")
+        log.error("HELLOE PLEASE", type(name), name, email, type(hashedpass), hashedpass)
         db = database()
 
         query = "Select * from user where email = %s"

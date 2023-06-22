@@ -4,7 +4,7 @@ import logging
 
 from db import database
 
-def query_keywords(keywords: list[str], app):
+def query_keywords(keywords: list[str]):
     db = database()
 
     query = generate_keyword_query_string(keywords)
