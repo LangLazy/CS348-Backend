@@ -30,7 +30,7 @@ def create_user():
     payload = request.get_json()
     try:
         name = payload['name']
-        password = str(hashlib.sha256(payload['password'].encode('utf-8')))
+        password = hashlib.sha256(payload['password'].encode('utf-8')).hexdigest()
         email = payload['email']
     except Exception as e:
         app.logger.error("Request with partial payload encountered on /signup")
