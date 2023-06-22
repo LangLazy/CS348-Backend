@@ -29,7 +29,8 @@ def create_user():
     
     payload = request.get_json()
     try:
-        name = payload['username']
+        app.logger.error(payload)
+        name = payload['name']
         password = hashlib.sha256(payload['password'])
         email = payload['email']
     except Exception as e:
