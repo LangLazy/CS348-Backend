@@ -5,13 +5,13 @@ from query_keywords import query_keywords
 app = Flask(__name__)
 cors = CORS(app)
 
-@app.route("/keywords", methods=['GET'])
+@app.route("/keywords/<keywords>", methods=['GET'])
 @cross_origin()
-def find_keyword_articles():
+def find_keyword_articles(keywords):
     if request.method != 'GET':
         return "<p>Please man</p>"
-    ids = request.form.getlist('keywords', type=str)
-    data = query_keywords(ids)
+    keywords = list(keywords.split("%"))
+    data = query_keywords(keywords)
     return data
     
 def create_user():
