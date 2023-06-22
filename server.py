@@ -39,6 +39,8 @@ def create_user():
         return "<p>Incomplete payload recieved on. Be sure to fill out the username, password and email fields</p>" 
     
     response = insert_user(name, password, email)
+    if not response:
+        return "<p> Internal Server Error <p>"
     return response
 
 def update_user():

@@ -6,23 +6,26 @@ import uuid
 from db import database
 
 def insert_user(name, email, hashedpass):
-    db = database()
-
-    query = "Select * from user where email = %s"
-    result = db.execute(query, [name])
-
-    if result != []:
-        return "Invalid email provided, already exists!"
-
-    new_uuid = uuid.uuid4()
-    
     try:
+        db = database()
+
+        query = "Select * from user where email = %s"
+        result = db.execute(query, [name])
+        logging.error("init", result)
+
+        if result != []:
+            return "Invalid email provided, already exists!"
+
+        new_uuid = uuid.uuid4()
         query = "Insert into author(author_id, author_name) VALUES(%s, %s)"
-        db.cursor.execute(query, [new_uuid, name])
+        result = db.execute(query, [new_uuid, name])
+        logging.error("init", result)
 
         query = "Insert into user(author_id, email, user_pass) VALUES(%s, %s, %s)"
-        db.cursor.execute(query, [new_uuid, email, hashedpass])
+        result = db.execute(query, [new_uuid, email, hashedpass])
+        logging.error("init", result)
         return "success"
 
     except Exception as e:
-        return e
+        logging.error(e)
+        return None
