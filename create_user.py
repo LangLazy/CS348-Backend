@@ -9,23 +9,23 @@ def insert_user(name, email, hashedpass):
     try:
         log = logging.getLogger(__name__)
         log.error("HELLOE PLEASE")
-        # db = database()
+        db = database()
 
-        # query = "Select * from user where email = %s"
-        # result = db.execute(query, [name])
-        # log.info("initial scan", result)
+        query = "Select * from user where email = %s"
+        result = db.execute(query, [name])
+        log.error("initial scan", result)
 
-        # if result != []:
-        #     return "Invalid email provided, already exists!"
+        if result != []:
+            return "Invalid email provided, already exists!"
 
-        # new_uuid = str(uuid.uuid4())
-        # query = "Insert into author(author_id, author_name) VALUES(%s, %s)"
-        # result = db.execute(query, [new_uuid, name])
-        # log.info("author insert", result)
+        new_uuid = str(uuid.uuid4())
+        query = "Insert into author(author_id, author_name) VALUES(%s, %s)"
+        result = db.execute(query, [new_uuid, name])
+        log.error("author insert", result)
 
-        # query = "Insert into user(author_id, email, user_pass) VALUES(%s, %s, %s)"
-        # result = db.execute(query, [new_uuid, email, hashedpass])
-        # log.info("user insert", result)
+        query = "Insert into user(author_id, email, user_pass) VALUES(%s, %s, %s)"
+        result = db.execute(query, [new_uuid, email, hashedpass])
+        log.error("user insert", result)
         return "success"
 
     except Exception as e:
