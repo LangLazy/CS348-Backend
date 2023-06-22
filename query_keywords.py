@@ -12,7 +12,7 @@ def query_keywords(keywords: list[str]):
 
     output = []
     
-    for row in db.cursor:
+    for row in db.result():
         output.append(row)
     
     return output

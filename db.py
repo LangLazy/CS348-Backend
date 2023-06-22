@@ -20,7 +20,11 @@ class database:
             port=PORT,
             database="citationmonkeydb"
         )
-        self.cursor = db.cursor()
+        self.db = db
     
     def execute(self, query, params):
-        self.cursor.execute(query, params)
+        cursor = self.db.cursor()
+        cursor.execute(query, params)
+    
+    def result(self):
+        return self.db.cursor()
