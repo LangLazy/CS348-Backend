@@ -18,7 +18,7 @@ def query_keywords(keywords: list[str]):
         port=PORT,
         database="citationmonkeydb"
     )
-    cursor = cnx.cursor()
+    cursor = db.cursor()
 
     query = generate_keyword_query_string(keywords)
     cursor.execute(query, keywords)
