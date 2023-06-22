@@ -22,6 +22,5 @@ class database:
         )
         self.cursor = db.cursor()
     
-    def execute(query, params):
+    def execute(self, query, params):
         cursor.execute(query, params)
-        
