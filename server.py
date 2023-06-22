@@ -4,6 +4,7 @@ import hashlib
 
 from query_keywords import query_keywords
 from create_user import insert_user
+from add_paper import publish_paper
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -45,5 +46,44 @@ def create_user():
 def update_user():
     pass
 
+@app.route("/publish", methods=['PUT'])
+@cross_origin()
 def create_paper():
-    pass
+    if request.method != "PUT":
+        app.logger.error("Invalid Request type made on /signup")
+        return "<p>Invalid Request made use PUT</p>"
+    elif not request.is_json:
+        app.logger.error("Invalid mime type recieved on /signup")
+        return "<p>Invalid mime type. Application/type must be JSON</p>"
+    
+    payload = request.get_json()
+
+    try:
+        title = payload['title']
+        year = payload['year']
+        fos_name = payload['fos_name']
+        n_citation = payload['n_citation']
+        url = payload['url']
+        author_id = payload['author_id']
+
+        page_start = payload.get('page_start', None)
+        page_end = payload.get('page_end', None)
+        doc_type = payload.get('doc_type', None)
+        lang = payload.get('lang', None)
+        vol = payload.get('vol', None)
+        issue = payload.get('issue', None)
+        issn = payload.get('issn', None)
+        isbn = payload.get('isbn', None)
+        doi = payload.get('doi', None)
+        abstract = payload.get('abstract', None)
+
+    except Exception as e:
+        app.logger.error("Request with partial payload encountered on /signup")
+        app.logger.error(e)
+        return "<p>Incomplete payload recieved on. Be sure to fill out the username, password and email fields</p>" 
+    
+    response = publish_paper(author_id, title, year, fos_name, n_citation, url, page_start, page_end, 
+                                doc_type, lang, vol, issue, issn, isbn, doi, abstract)
+    if not response:
+        return "<p> Internal Server Error <p>"
+    return response
