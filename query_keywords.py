@@ -8,11 +8,11 @@ def query_keywords(keywords: list[str]):
     db = database()
 
     query = generate_keyword_query_string(keywords)
-    db.execute(query, keywords)
+    result = db.execute(query, keywords)
 
     output = []
     
-    for row in db.result():
+    for row in result:
         output.append(row)
     
     return output

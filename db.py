@@ -25,6 +25,4 @@ class database:
     def execute(self, query, params):
         cursor = self.db.cursor()
         cursor.execute(query, params)
-    
-    def result(self):
-        return self.db.cursor()
+        return cursor.stored_results()
