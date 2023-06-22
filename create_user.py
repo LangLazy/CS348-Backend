@@ -23,12 +23,10 @@ def insert_user(name, email, hashedpass):
         query = "Insert into author(author_id, author_name) VALUES(%s, %s)"
         db.execute(query, [new_uuid, name], False)
         log.debug("DONE 2")
-        log.error("author insert", result)
 
         query = "Insert into user(author_id, email, user_pass) VALUES(%s, %s, %s)"
         db.execute(query, [new_uuid, email, hashedpass], False)
         log.debug("DONE 3")
-        log.error("user insert", result)
         return "success"
 
     except Exception as e:
