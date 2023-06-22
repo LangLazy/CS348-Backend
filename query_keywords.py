@@ -22,7 +22,7 @@ def query_keywords(keywords: list[str], app):
     cursor = db.cursor()
 
     query = generate_keyword_query_string(keywords)
-    app.logger.debug(query)
+    app.logger.error("PLEASE " + query)
     cursor.execute(query, keywords)
 
     output = []
