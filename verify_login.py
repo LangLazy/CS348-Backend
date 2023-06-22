@@ -11,6 +11,7 @@ def verify_login(email, password):
         query = ("SELECT u.user_pass FROM user as u WHERE u.email = %s")
         result = db.execute(query, [email])
         for r in result:
+            log.debug(r)
             if r == password:
                 return "Login Validated"
         return "Login Rejected"

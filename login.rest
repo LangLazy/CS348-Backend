@@ -2,6 +2,6 @@ POST http://54.242.252.72/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "rgudise@uwaterloo.ca",
     "password": "Password4",
+    "email": "rgudise@uwaterloo.ca"
 }
