@@ -6,6 +6,7 @@ from query_keywords import query_keywords
 from create_user import insert_user
 from add_paper import publish_paper
 from get_citations import find_citations
+from verify_login import verify_login
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -44,6 +45,25 @@ def create_user():
     if not response:
         return "<p> Internal Server Error <p>"
     return response
+
+@app.route("/login", methods=['POST'])
+@cross_origin()
+def validate_login():
+    if request.method != 'POST':
+        app.logger.error("Invalid Request type made on /login")
+        return "<p>Invalid Request made use POST</p>"
+    elif not request.is_json:
+        app.logger.error("Invalid mime type recieved on /login")
+        return "<p>Invalid mime type. Application/type must be JSON</p>"
+    payload = request.get_json()
+    try:
+        email = payload['email']
+        password = (hashlib.sha256(payload['password'].encode('utf-8'))).hexdigest()
+    except Exception as e:
+        app.logger.error("Request with partial payload encountered on /signup")
+        app.logger.error(e)
+        return "<p>Incomplete payload recieved on. Be sure to fill out the password and email fields</p>"
+    return verify_login(email, password)
 
 @app.route("/citations/<paper_id>", methods=['GET'])
 @cross_origin()
@@ -96,7 +116,7 @@ def create_paper():
     except Exception as e:
         app.logger.error("Request with partial payload encountered on /signup")
         app.logger.error(e)
-        return "<p>Incomplete payload recieved on. Be sure to fill out the username, password and email fields</p>" 
+        return "<p>Incomplete payload recieved on. Be sure to fill out the title, year, fos_name, n_citation, url, and author_id fields</p>" 
     
     response = publish_paper(author_id, title, year, fos_name, n_citation, url, page_start, page_end, 
                                 doc_type, lang, vol, issue, issn, isbn, doi, abstract)
