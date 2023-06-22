@@ -12,7 +12,7 @@ def verify_login(email, password):
         result = db.execute(query, [email])
         log.debug("starting password comp")
         for r in result:
-            password = tuple(password)
+            password = (password,)
             log.debug(r)
             log.debug(password)
             if r == password:
