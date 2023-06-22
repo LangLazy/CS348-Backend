@@ -5,7 +5,6 @@ def query_keywords(keywords: list[str]):
     try:
         USER = os.getenv('SQL_USERNAME')
         PASSWORD = os.getenv('SQL_PASSWORD')
-        PORT = os.getenv('SQL_PORT')
         HOST = os.getenv('SQL_HOST')
     except:
         print("Could not access env vars")
@@ -15,7 +14,8 @@ def query_keywords(keywords: list[str]):
         host=HOST,
         user=USER,
         password=PASSWORD,
-        port=PORT
+        port=PORT,
+        database="citationmonkeydb"
     )
     cursor = cnx.cursor()
 
