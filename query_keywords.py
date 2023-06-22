@@ -5,14 +5,14 @@ import logging
 from db import connect_db
 
 def query_keywords(keywords: list[str]):
-    cursor = connect_db()
+    db = db.database()
 
     query = generate_keyword_query_string(keywords)
-    cursor.execute(query, keywords)
+    db.execute(query, keywords)
 
     output = []
     
-    for row in cursor:
+    for row in db.cursor:
         output.append(row)
     
     return output
