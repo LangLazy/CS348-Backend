@@ -6,9 +6,9 @@ import uuid
 from db import database
 
 def insert_user(name, email, hashedpass):
+    logging.basicConfig()
+    log = logging.getLogger(__name__).setLevel(logging.DEBUG)
     try:
-        logging.basicConfig()
-        log = logging.getLogger(__name__).setLevel(logging.DEBUG)
         db = database()
         log.debug("DONE 0")
         query = ["Select * from user where email = %s"]
@@ -18,8 +18,8 @@ def insert_user(name, email, hashedpass):
         if result != []:
             return "Invalid email provided, already exists!"
 
-        new_uuid = uuid.uuid4().hex()
-        query = "Insert into author(author_id, author_name) VALUES(%s, %s)"
+        # new_uuid = str(uuid.uuid4())
+        # query = "Insert into author(author_id, author_name) VALUES(%s, %s)"
         # result = db.execute(query, [new_uuid, name])
         # log.debug("DONE 2")
         # log.error("author insert", result)
@@ -31,5 +31,5 @@ def insert_user(name, email, hashedpass):
         return "success"
 
     except Exception as e:
-        log.error(e)
+        log.debug(e)
         return None
