@@ -62,16 +62,16 @@ def create_paper():
         title = payload['title']
         year = payload['year']
         fos_name = payload['fos_name']
-        n_citation = payload['n_citation']
+        n_citation = int(payload['n_citation'])
         url = payload['url']
         author_id = payload['author_id']
 
-        page_start = payload.get('page_start', None)
-        page_end = payload.get('page_end', None)
+        page_start = int(payload.get('page_start', None))
+        page_end = int(payload.get('page_end', None))
         doc_type = payload.get('doc_type', None)
         lang = payload.get('lang', None)
-        vol = payload.get('vol', None)
-        issue = payload.get('issue', None)
+        vol = int(payload.get('vol', None))
+        issue = int(payload.get('issue', None))
         issn = payload.get('issn', None)
         isbn = payload.get('isbn', None)
         doi = payload.get('doi', None)
