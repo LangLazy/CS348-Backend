@@ -18,7 +18,7 @@ def publish_paper(author_id, title, year, fos_name, n_citation, url, page_start,
             return "ERROR: No such author exists"
 
         query = '''Insert into paper(paper_id, title, year, fos_name, n_citation, page_start, page_end, doc_type, lang, vol, issue, issn, isbn, doi, url, abstract)
-                               VALUES(%s, %s, %s, %s, %d, %d, %d, %s, %s, %d, %d, %s, %s, %s, %s, %s)'''
+                               VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
         db.execute((query), [paper_id, title, year, fos_name, n_citation, page_start, page_end, 
                                 doc_type, lang, vol, issue, issn, isbn, doi, url, abstract], False)
 
