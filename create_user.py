@@ -7,11 +7,12 @@ from db import database
 
 def insert_user(name, email, hashedpass):
     try:
+        log = logging.getLogger(__name__)
         db = database()
 
         query = "Select * from user where email = %s"
         result = db.execute(query, [name])
-        logging.info("initial scan", result)
+        log.info("initial scan", result)
 
         if result != []:
             return "Invalid email provided, already exists!"
@@ -19,13 +20,13 @@ def insert_user(name, email, hashedpass):
         new_uuid = str(uuid.uuid4())
         query = "Insert into author(author_id, author_name) VALUES(%s, %s)"
         result = db.execute(query, [new_uuid, name])
-        logging.info("author insert", result)
+        log.info("author insert", result)
 
         query = "Insert into user(author_id, email, user_pass) VALUES(%s, %s, %s)"
         result = db.execute(query, [new_uuid, email, hashedpass])
-        logging.info("user insert", result)
+        log.info("user insert", result)
         return "success"
 
     except Exception as e:
-        logging.error(e)
+        log.error(e)
         return None
