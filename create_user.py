@@ -13,7 +13,7 @@ def insert_user(name, email, hashedpass):
         db = database()
         log.debug("DONE 0")
         log.debug(name)
-        query = ("SELECT * FROM user as u WHERE u.email = %s")
+        query = ("SELECT * FROM user as u")
         result = db.execute(query, (name))
         log.debug("DONE 1")
         log.debug(result)
