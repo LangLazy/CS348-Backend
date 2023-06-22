@@ -8,12 +8,12 @@ from db import database
 def insert_user(name, email, hashedpass):
     try:
         logging.basicConfig()
-        log = logging.getLogger(__name__)
+        log = logging.getLogger(__name__).setLevel(logging.DEBUG)
         db = database()
         log.debug("DONE 0")
-        # query = ["Select * from user where email = %s"]
-        # result = db.execute(query, [name])
-        # log.debug("DONE 1")
+        query = ["Select * from user where email = %s"]
+        result = db.execute(query, [name])
+        log.debug("DONE 1")
 
         # if result != []:
         #     return "Invalid email provided, already exists!"
