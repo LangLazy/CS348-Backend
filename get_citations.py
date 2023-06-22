@@ -14,8 +14,7 @@ def find_citations(root_ID):
                             ))
                         SELECT cites_paper_id
                         FROM HasCited
-                    ) as t, paper as p
-                WHERE t.paper_id = p.paper_id
+                    ) NATURAL JOIN paper as p
             '''
     result = db.execute(query, [root_ID])
     return result
