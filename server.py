@@ -21,15 +21,22 @@ def find_keyword_articles(keywords):
 @cross_origin()
 def create_user():
     if request.method != 'POST':
-        return "<p>Invalid Request</p>"
+        app.logger.error("Invalid Request type made on /signup")
+        return "<p>Invalid Request made use POST</p>"
+    elif not request.is_json:
+        app.logger.error("Invalid mime type recieved on /signup")
+        return "<p>Invalid mime type. Application/type must be JSON</p>" 
+    
+    payload = request.get_json()
     try:
-        name = request.form['username']
-        password = hashlib.sha256(request.form['password'])
-        email = request.form['email']
+        name = payload['username']
+        password = hashlib.sha256(payload['password'])
+        email = payload['email']
     except:
-        app.logger.error("Payload body does not have required fields")
-        return
-    response = insert_user(username, password, email)
+        app.logger.error("Request with partial payload encountered on /signup")
+        return "<p>Incomplete payload recieved on. Be sure to fill out the username, password and email fields</p>" 
+    
+    response = insert_user(name, password, email)
     return response
 
 def update_user():
