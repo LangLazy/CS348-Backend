@@ -1,7 +1,8 @@
 import mysql.connector
 import os
+import logging
 
-def query_keywords(keywords: list[str]):
+def query_keywords(keywords: list[str], app):
     try:
         USER = os.getenv('SQL_USER')
         PASSWORD = os.getenv('SQL_PASSWORD')
@@ -21,6 +22,7 @@ def query_keywords(keywords: list[str]):
     cursor = db.cursor()
 
     query = generate_keyword_query_string(keywords)
+    app.logger.debug(query)
     cursor.execute(query, keywords)
 
     output = []
@@ -33,9 +35,9 @@ def query_keywords(keywords: list[str]):
 def generate_keyword_query_string(keywords):
     if len(keywords) == 0:
         return ("SELECT * FROM paper NATURAL JOIN keywords")
-    formatted_portion = ["word = %s "] * len(keywords)
+    formatted_portion = ["t.word = %s"] * len(keywords)
     query_params = "OR ".join(formatted_portion)
-    query = ("SELECT * FROM paper NATURAL JOIN keywords WHERE" + query_params)
+    query = ("SELECT * FROM paper NATURAL JOIN keywords  as t WHERE" + query_params)
     return query
 
     

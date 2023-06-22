@@ -11,7 +11,7 @@ def find_keyword_articles(keywords):
     if request.method != 'GET':
         return "<p>Please man</p>"
     keywords = list(keywords.split(","))
-    data = query_keywords(keywords)
+    data = query_keywords(keywords, app)
     return data
     
 def create_user():
