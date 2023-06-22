@@ -8,10 +8,10 @@ from db import database
 def insert_user(name, email, hashedpass):
     try:
         log = logging.getLogger(__name__)
-        log.error("HELLOE PLEASE", type(name), name, email, type(hashedpass), hashedpass)
+        log.error("HELLOE PLEASE", name, email, hashedpass)
         db = database()
 
-        query = "Select * from user where email = %s"
+        query = ["Select * from user where email = %s"]
         result = db.execute(query, [name])
         log.error("initial scan", result)
 
