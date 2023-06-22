@@ -22,7 +22,7 @@ class database:
         )
         self.db = db
     
-    def execute(self, query, params, expectoutput):
+    def execute(self, query, params, expectoutput=True):
         cursor = self.db.cursor()
         logging.info("STARTING QUERY")
         cursor.execute(query, params)
