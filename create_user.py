@@ -3,7 +3,7 @@ import os
 import logging
 import uuid
 
-from db import connect_db
+from db import database
 
 def insert_user(name, email, hashedpass):
     db = db.database()

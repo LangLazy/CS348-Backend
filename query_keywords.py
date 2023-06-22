@@ -2,7 +2,7 @@ import mysql.connector
 import os
 import logging
 
-from db import connect_db
+from db import database
 
 def query_keywords(keywords: list[str]):
     db = db.database()
