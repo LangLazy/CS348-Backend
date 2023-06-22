@@ -5,7 +5,7 @@ def find_citations(root_ID):
     query = '''
                 Select p.paper_id, p.title, p.n_citation
                 From (with recursive 
-                        HasCited AS 
+                        HasCited(paper_id, cites_paper_id) AS 
                             ((SELECT paper_id, cites_paper_id FROM citations WHERE paper_id = %s)
                             UNION
                             (SELECT citations.paper_id, citations.cites_paper_id
