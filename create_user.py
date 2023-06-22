@@ -6,8 +6,9 @@ import uuid
 from db import database
 
 def insert_user(name, email, hashedpass):
-    logging.basicConfig()
-    log = logging.getLogger(__name__).setLevel(logging.DEBUG)
+    logging.basicConfig(level=logging.DEBUG, force=True)
+    logging.getLogger(__name__).setLevel(logging.DEBUG)
+    log = logging.getLogger(__name__)
     try:
         db = database()
         log.debug("DONE 0")
