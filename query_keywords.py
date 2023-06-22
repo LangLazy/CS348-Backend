@@ -6,6 +6,7 @@ def query_keywords(keywords: list[str]):
         USER = os.getenv('SQL_USERNAME')
         PASSWORD = os.getenv('SQL_PASSWORD')
         HOST = os.getenv('SQL_HOST')
+        PORT = os.getenv('SQL_PORT')
     except:
         print("Could not access env vars")
         return "Internal Server Error"
