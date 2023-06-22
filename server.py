@@ -10,7 +10,7 @@ cors = CORS(app)
 def find_keyword_articles(keywords):
     if request.method != 'GET':
         return "<p>Please man</p>"
-    keywords = list(keywords.split("%"))
+    keywords = list(keywords.split(","))
     data = query_keywords(keywords)
     return data
     
