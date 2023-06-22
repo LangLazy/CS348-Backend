@@ -21,12 +21,12 @@ def insert_user(name, email, hashedpass):
 
         new_uuid = uuid.uuid4().hex
         query = "Insert into author(author_id, author_name) VALUES(%s, %s)"
-        result = db.execute(query, [new_uuid, name])
+        db.execute(query, [new_uuid, name])
         log.debug("DONE 2")
         log.error("author insert", result)
 
         query = "Insert into user(author_id, email, user_pass) VALUES(%s, %s, %s)"
-        result = db.execute(query, [new_uuid, email, hashedpass])
+        db.execute(query, [new_uuid, email, hashedpass])
         log.debug("DONE 3")
         log.error("user insert", result)
         return "success"

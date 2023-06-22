@@ -22,11 +22,12 @@ class database:
         )
         self.db = db
     
-    def execute(self, query, params):
+    def execute(self, query, params, expectoutput):
         cursor = self.db.cursor()
         logging.info("STARTING QUERY")
         cursor.execute(query, params)
-        results = cursor.fetchall() #VERY INNEFICIENT LOADS EVERYTHING INTO MEMORY
-        logging.info("QUERY RESULT")
-        logging.info(results)
-        return results
+        if expectoutput:
+            results = cursor.fetchall() #VERY INNEFICIENT LOADS EVERYTHING INTO MEMORY
+            logging.info("QUERY RESULT")
+            logging.info(results)
+            return results
