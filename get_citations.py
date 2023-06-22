@@ -11,7 +11,7 @@ def find_citations(root_ID):
             FROM HasCited HC, citations
             WHERE HC.cites_paper_id = citations.paper_id
             ))
-            SELECT p.paper_id, p.title, p.n_citation
+            SELECT Distinct p.paper_id, p.title, p.n_citation
             FROM HasCited NATURAL JOIN paper as p
             '''
     result = db.execute(query, [root_ID])

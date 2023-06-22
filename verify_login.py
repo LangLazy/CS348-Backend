@@ -13,7 +13,7 @@ def verify_login(email, password):
         log.debug("starting password comp")
         for r in result:
             log.debug(r)
-            log.debug(password)
+            log.debug((password))
             if r == (password):
                 return "Login Validated"
         return "Login Rejected"
