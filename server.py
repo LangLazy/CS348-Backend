@@ -7,7 +7,7 @@ cors = CORS(app)
 
 @app.route("/keywords", methods=['GET'])
 @cross_origin()
-def query_keywords():
+def find_keyword_articles():
     if request.method != 'GET':
         return "<p>Please man</p>"
     ids = request.form.getlist('keywords', type=str)
