@@ -5,6 +5,7 @@ import hashlib
 from query_keywords import query_keywords
 from create_user import insert_user
 from add_paper import publish_paper
+from get_citations import find_citations
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -13,6 +14,7 @@ cors = CORS(app)
 @cross_origin()
 def find_keyword_articles(keywords):
     if request.method != 'GET':
+        app.logger.error("Invalid Request type made on /keywords")
         return "<p>Invalid Request</p>"
     keywords = list(keywords.split(","))
     data = query_keywords(keywords)
@@ -43,8 +45,14 @@ def create_user():
         return "<p> Internal Server Error <p>"
     return response
 
-def update_user():
-    pass
+@app.route("/citations/<paper_id>", methods=['GET'])
+@cross_origin()
+def get_citations(paper_id):
+    if request.method != 'GET':
+        app.logger.error("Invalid Request type made on /citations")
+        return "<p>Invalid Request</p>"
+    response = find_citations(paper_id)
+    return response
 
 @app.route("/publish", methods=['PUT'])
 @cross_origin()
