@@ -1,0 +1,7 @@
+POST http://54.242.252.72/login HTTP/1.1
+content-type: application/json
+
+{
+    "password": "21",
+    "email": "huge.com"
+}

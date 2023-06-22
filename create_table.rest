@@ -1,0 +1,8 @@
+POST http://54.242.252.72/signup HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "password": "21",
+    "email": "huge.com"
+}

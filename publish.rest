@@ -1,0 +1,12 @@
+PUT http://54.242.252.72/publish HTTP/1.1
+content-type: application/json
+
+{
+    "author_id": "0",
+    "title": "why am I unable to find someone who loves me",
+    "year": 1990,
+    "fos_name": "pain",
+    "n_citation": "3",
+    "url": "gamer.com",
+    "abstract": "I solve the p = np problem"
+}
