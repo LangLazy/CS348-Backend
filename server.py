@@ -17,7 +17,7 @@ def find_keyword_articles(keywords):
     data = query_keywords(keywords)
     return data
 
-@app.route("/keywords", methods=['GET'])
+@app.route("/keyword", methods=['GET'])
 @cross_origin()
 def find_keyword_articles():
     if request.method != 'GET':
