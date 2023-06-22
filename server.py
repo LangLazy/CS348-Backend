@@ -1,5 +1,5 @@
 from flask import Flask
-import query_keywords from query_keywords
+from query_keywords import query_keywords
 
 app = Flask(__name__)
 
