@@ -27,5 +27,6 @@ class database:
         logging.info("STARTING QUERY")
         cursor.execute(query, params)
         results = cursor.fetchall() #VERY INNEFICIENT LOADS EVERYTHING INTO MEMORY
-        logging.info("QUERY RESULT:", results)
+        logging.info("QUERY RESULT")
+        logging.info(results)
         return results

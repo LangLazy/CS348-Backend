@@ -16,7 +16,6 @@ def insert_user(name, email, hashedpass):
         query = ("SELECT * FROM user as u")
         result = db.execute(query, (name))
         log.debug("DONE 1")
-        log.debug(result)
         if result != []:
             return "Invalid email provided, already exists!"
 
