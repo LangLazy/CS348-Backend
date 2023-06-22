@@ -12,9 +12,9 @@ def verify_login(email, password):
         result = db.execute(query, [email])
         log.debug("starting password comp")
         for r in result:
-            log.debug(r)
-            log.debug((password))
             password = tuple(password)
+            log.debug(r)
+            log.debug(password)
             if r == password:
                 return "Login Validated"
         return "Login Rejected"
