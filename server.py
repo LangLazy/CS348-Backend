@@ -14,17 +14,8 @@ def find_keyword_articles(keywords):
     if request.method != 'GET':
         return "<p>Invalid Request</p>"
     keywords = list(keywords.split(","))
-    data = query_keywords(keywords)
+    data = query_keywords(keywords, app)
     return data
-
-@app.route("/keyword", methods=['GET'])
-@cross_origin()
-def find_keyword_articles():
-    if request.method != 'GET':
-        return "<p>Invalid Request</p>"
-    data = query_keywords([])
-    return data
-
 
 @app.route("/signup", methods=['POST'])
 @cross_origin()

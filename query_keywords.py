@@ -4,12 +4,13 @@ import logging
 
 from db import database
 
-def query_keywords(keywords: list[str]):
+def query_keywords(keywords: list[str], app):
     db = database()
 
     query = generate_keyword_query_string(keywords)
+    app.logger.error("QWUERY: "+  query)
     result = db.execute(query, keywords)
-
+    app.logger.error("QWUERY: "+  result)
     output = []
     
     for row in result:
