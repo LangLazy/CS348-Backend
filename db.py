@@ -20,7 +20,7 @@ class database:
             port=PORT,
             database="citationmonkeydb"
         )
-        db.autocommit(True)
+        db.autocommit = True
         self.db = db
     
     def execute(self, query, params, expectoutput=True):
