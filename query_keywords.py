@@ -20,10 +20,10 @@ def query_keywords(keywords: list[str], app):
 
 def generate_keyword_query_string(keywords):
     if len(keywords) == 0:
-        return ("SELECT * FROM paper NATURAL JOIN keywords")
+        return ("SELECT * FROM paper NATURAL JOIN keywords Group by paper_id")
     formatted_portion = ["t.word = %s"] * len(keywords)
     query_params = " OR ".join(formatted_portion)
-    query = ("SELECT * FROM paper NATURAL JOIN keywords  as t WHERE " + query_params)
+    query = ("SELECT * FROM paper NATURAL JOIN keywords  as t WHERE " + query_params  + "Group by paper_id")
     return query
 
     
