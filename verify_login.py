@@ -14,7 +14,8 @@ def verify_login(email, password):
         for r in result:
             log.debug(r)
             log.debug((password))
-            if r == (password):
+            password = tuple(password)
+            if r == password:
                 return "Login Validated"
         return "Login Rejected"
     except Exception as e:
