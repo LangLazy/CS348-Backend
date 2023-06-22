@@ -10,6 +10,7 @@ def verify_login(email, password):
         db = database()
         query = ("SELECT u.user_pass FROM user as u WHERE u.email = %s")
         result = db.execute(query, [email])
+        log.debug("starting password comp")
         for r in result:
             log.debug(r)
             if r == password:
