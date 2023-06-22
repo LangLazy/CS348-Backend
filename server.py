@@ -17,6 +17,15 @@ def find_keyword_articles(keywords):
     data = query_keywords(keywords)
     return data
 
+@app.route("/keywords", methods=['GET'])
+@cross_origin()
+def find_keyword_articles():
+    if request.method != 'GET':
+        return "<p>Invalid Request</p>"
+    data = query_keywords([])
+    return data
+
+
 @app.route("/signup", methods=['POST'])
 @cross_origin()
 def create_user():
