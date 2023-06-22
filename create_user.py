@@ -32,5 +32,6 @@ def insert_user(name, email, hashedpass):
         return "success"
 
     except Exception as e:
+        log.error("I have failed brother")
         log.debug(e)
         return None
