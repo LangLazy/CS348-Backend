@@ -3,10 +3,10 @@ import query_keywords from query_keywords
 
 app = Flask(__name__)
 
-@app.route("/keywords", methods=['POST'])
+@app.route("/keywords", methods=['GET'])
 @cross_origin()
 def query_keywords():
-    if request.method != 'POST':
+    if request.method != 'GET':
         return "<p>Please man</p>"
     ids = request.form.getlist('keywords', type=str)
     data = query_keywords(ids)
