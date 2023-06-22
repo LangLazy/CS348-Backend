@@ -2,27 +2,12 @@ import mysql.connector
 import os
 import logging
 
-def query_keywords(keywords: list[str], app):
-    try:
-        USER = os.getenv('SQL_USER')
-        PASSWORD = os.getenv('SQL_PASSWORD')
-        HOST = os.getenv('SQL_HOST')
-        PORT = os.getenv('SQL_PORT')
-    except:
-        print("Could not access env vars")
-        return "Internal Server Error"
-    
-    db = mysql.connector.connect(
-        host=HOST,
-        user=USER,
-        password=PASSWORD,
-        port=PORT,
-        database="citationmonkeydb"
-    )
-    cursor = db.cursor()
+from db import connect_db
+
+def query_keywords(keywords: list[str]):
+    cursor = connect_db()
 
     query = generate_keyword_query_string(keywords)
-    app.logger.error("PLEASE " + query)
     cursor.execute(query, keywords)
 
     output = []

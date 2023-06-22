@@ -1,6 +1,9 @@
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
+import hashlib
+
 from query_keywords import query_keywords
+from create_user import insert_user
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -9,13 +12,25 @@ cors = CORS(app)
 @cross_origin()
 def find_keyword_articles(keywords):
     if request.method != 'GET':
-        return "<p>Please man</p>"
+        return "<p>Invalid Request</p>"
     keywords = list(keywords.split(","))
     data = query_keywords(keywords, app)
     return data
-    
+
+@app.route("/signup", methods=['POST'])
+@cross_origin()
 def create_user():
-    pass
+    if request.method != 'POST':
+        return "<p>Invalid Request</p>"
+    try:
+        name = request.form['username']
+        password = hashlib.sha256(request.form['password'])
+        email = request.form['email']
+    except:
+        app.logger.error("Payload body does not have required fields")
+        return
+    response = insert_user(username, password, email)
+    return response
 
 def update_user():
     pass
