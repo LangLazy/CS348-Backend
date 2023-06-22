@@ -19,7 +19,7 @@ def insert_user(name, email, hashedpass):
         if result != []:
             return "Invalid email provided, already exists!"
 
-        new_uuid = uuid.uuid4().hex()
+        new_uuid = uuid.uuid4().hex
         query = "Insert into author(author_id, author_name) VALUES(%s, %s)"
         result = db.execute(query, [new_uuid, name])
         log.debug("DONE 2")
