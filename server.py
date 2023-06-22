@@ -1,7 +1,9 @@
 from flask import Flask
+from flask_cors import CORS, cross_origin
 from query_keywords import query_keywords
 
 app = Flask(__name__)
+cors = CORS(app)
 
 @app.route("/keywords", methods=['GET'])
 @cross_origin()
