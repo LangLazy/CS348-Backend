@@ -14,7 +14,7 @@ def find_keyword_articles(keywords):
     if request.method != 'GET':
         return "<p>Invalid Request</p>"
     keywords = list(keywords.split(","))
-    data = query_keywords(keywords, app)
+    data = query_keywords(keywords)
     return data
 
 @app.route("/signup", methods=['POST'])
