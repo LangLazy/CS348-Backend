@@ -103,7 +103,7 @@ def create_paper():
         doc_type = payload.get('doc_type', None)
         lang = payload.get('lang', None)
         vol = payload.get('vol', None)
-        if page_end:
+        if vol:
             vol = int(vol)
         issue = payload.get('issue', None)
         if issue:
