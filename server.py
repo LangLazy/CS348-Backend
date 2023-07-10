@@ -7,7 +7,7 @@ from create_user import insert_user
 from add_paper import publish_paper
 from get_citations import find_citations
 from verify_login import verify_login
-from challenge import get_challenge
+from challenge import get_challenge, update_author_elo
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -133,5 +133,11 @@ def propose_challenge():
 @app.route("/result", methods=["POST"])
 @cross_origin()
 def process_challenge_result():
-    pass
+    payload = request.get_json()
+    try:
+        winner = payload['winner']
+        loser = payload['loser']
+    except:
+        return "Malformatted json body"
+    return update_author_elo(winner, loser)
 
