@@ -32,3 +32,9 @@ class database:
             logging.info("QUERY RESULT")
             logging.info(results)
             return results
+    
+    def get_random(self, num_random):
+        cursor = self.db.cursor()
+        cursor.execute(("SELECT * FROM author ORDER BY rand() WHERE author_name IS NOT NULL LIMIT %s"), [num_random])
+        results = cursor.fetchall()
+        return results

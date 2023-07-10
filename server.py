@@ -123,3 +123,14 @@ def create_paper():
     if not response:
         return "<p> Internal Server Error <p>"
     return response
+
+@app.route("/challenge", methods=["GET"])
+@cross_origin()
+def propose_challenge():
+    pass
+
+@app.route("/result", methods=["POST"])
+@cross_origin()
+def process_challenge_result():
+    pass
+
