@@ -7,6 +7,7 @@ from create_user import insert_user
 from add_paper import publish_paper
 from get_citations import find_citations
 from verify_login import verify_login
+from challenge import get_challenge
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -127,7 +128,7 @@ def create_paper():
 @app.route("/challenge", methods=["GET"])
 @cross_origin()
 def propose_challenge():
-    pass
+    return get_challenge()
 
 @app.route("/result", methods=["POST"])
 @cross_origin()
