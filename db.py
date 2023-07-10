@@ -35,6 +35,6 @@ class database:
     
     def get_random(self, num_random):
         cursor = self.db.cursor()
-        cursor.execute(("SELECT * FROM author ORDER BY rand() WHERE author_name IS NOT NULL LIMIT %s"), [num_random])
+        cursor.execute(("SELECT * FROM author WHERE author_name IS NOT NULL ORDER BY rand() LIMIT %s"), [num_random])
         results = cursor.fetchall()
         return results
