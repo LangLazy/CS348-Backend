@@ -6,7 +6,7 @@ from operation_types import Operation_Types
 Wrapper function log user actions. Called after any major operation (api call).
 Input: 
     - userId -> from the user table which is also an authorId
-    - operation -> either u, i, or d for update, insert or delete
+    - operation -> expects an enum from operation_types
     - summary -> description of change that the user can see
 """
 def log_action(userId, operation, summary):
@@ -20,19 +20,11 @@ def log_action(userId, operation, summary):
     try:
         db = database()
         timestamp = "NOW()" # confirmed that this works
-        operationId = ""
-        match operation:
-            case "update":
-                operationId = "u"
-            case "insert":
-                operationId = "i"
-            case "delete":
-                operationId = "d"
         
         query = '''Insert into history(user_id, timestamp, operation_type, summary)
                                 VALUES(%s, %s, %s, %s)'''
 
-        db.execute(query, [userId, timestamp,  operationId, summary], False)
+        db.execute(query, [userId, timestamp,  operation.value, summary], False)
         return "sucess"
     except Exception as e:
         log.error("I have failed brother")
