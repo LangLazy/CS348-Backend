@@ -1,0 +1,7 @@
+POST http://54.242.252.72/result HTTP/1.1
+content-type: application/json
+
+{
+    "winner":"14",
+    "loser":"13"
+}
