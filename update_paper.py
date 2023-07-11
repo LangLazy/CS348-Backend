@@ -14,9 +14,9 @@ def generate_query(paperid, **kwargs):
     full = (" ".join(query))
     print(full)
     args.append(paperid)
-    return full
+    return (full,args)
 
 def update_paper(paperid, **kwargs):
     db = database()
-    query = generate_query(paperid, **kwargs)
-    db.execute(query, [paperid], False)
+    query, args = generate_query(paperid, **kwargs)
+    db.execute(query, args, False)
