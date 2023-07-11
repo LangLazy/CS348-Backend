@@ -27,7 +27,6 @@ class database:
         cursor = self.db.cursor()
         logging.info("STARTING QUERY")
         cursor.execute(query, params)
-        self.db.commit()
         if expectoutput:
             results = cursor.fetchall() #VERY INNEFICIENT LOADS EVERYTHING INTO MEMORY
             logging.info("QUERY RESULT")
