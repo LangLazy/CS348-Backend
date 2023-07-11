@@ -152,6 +152,7 @@ def generate_leaderboard():
 @cross_origin()
 def handle_paper_update():
     payload = request.get_json()
-    return get_leaderboard()
+    print(payload)
+    return update_paper()
 
 
