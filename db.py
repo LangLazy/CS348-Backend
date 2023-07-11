@@ -32,6 +32,9 @@ class database:
             logging.info("QUERY RESULT")
             logging.info(results)
             return results
+        else:
+            self.db.commit()
+            print(cursor.rowcount, "record(s) affected")
     
     def get_random(self, num_random):
         cursor = self.db.cursor()

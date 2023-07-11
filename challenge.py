@@ -9,6 +9,7 @@ def get_author_elo(author):
 
 def update_author_elo(author, elo):
     db = database()
+    print(author)
     query = ("UPDATE author SET author_elo = %s WHERE author_id = %s")
     db.execute(query, [author, elo], expectoutput=False)
 
