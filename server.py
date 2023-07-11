@@ -153,8 +153,8 @@ def generate_leaderboard():
 def handle_paper_update():
     try:
         payload = request.get_json()
-        pid = payload['payload_id']
-        del payload['payload_id']
+        pid = payload['paper_id']
+        del payload['paper_id']
         return update_paper(payload["paper_id"], **payload)
     except:
         return "<p>Invalid format of JSON body passed<p>"

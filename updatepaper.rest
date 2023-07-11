@@ -2,6 +2,6 @@ POST http://54.242.252.72/update HTTP/1.1
 content-type: application/json
 
 {
-    "winner":"14",
-    "loser":"13"
+    "paper_id":"14",
+    "title": "gamer"
 }
