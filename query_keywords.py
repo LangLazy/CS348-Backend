@@ -6,7 +6,7 @@ from db import database
 
 def query_keywords(queryParams: dict[dict[str]]):
     print("hellp")
-    # db = database()
+    db = database()
     author_params = []
     other_params = []
     for query in queryParams.values():
@@ -36,8 +36,13 @@ def query_keywords(queryParams: dict[dict[str]]):
     return output
 
 def generate_keyword_query_string(queryParams):
+    first_join = "SELECT w.paper_id, group_concat(a.author_name) as Authors, " + \
+                "group_concat(a.author_id) as Authors_id " + \
+                "FROM author a NATURAL JOIN wrote w"
     if len(queryParams) == 0:
-        return ("SELECT * FROM paper NATURAL JOIN keywords Group by paper_id")
+        first_join += " GROUP BY w.paper_id"
+        second_join = "SELECT * FROM paper NATURAL JOIN keywords Group by paper_id"
+        return ("SELECT * FROM ({}) X NATURAL JOIN ({}) Y".format(first_join, second_join))
     author_params = ""
     query_params = ""
     for query in queryParams.values():
@@ -50,23 +55,29 @@ def generate_keyword_query_string(queryParams):
             elif query["boolean"] != "None": 
                 author_params += " " + query["boolean"] + " a.author_name " + equality + " %s"
         else:
-            if query["field"] == "Keywords": attribute = "word"
-            elif query["field"] == "Title": attribute = "title"
+            if query["field"] == "Keywords": 
+                attribute = "word"
+                table = "t"
+            elif query["field"] == "Title": 
+                attribute = "title"
+                table = "p"
             if query["boolean"] == "AND" or query["boolean"] == "NOT":
                 query_params += " AND "
             elif query["boolean"] == "OR":
                 query_params += " OR "
             value = [x.strip(' ') for x in query["value"].split(",")]
-            formatted_portion = ["t." + attribute + " " + equality + " %s"] * len(value)
-            query_params += (" " + query["boolean"] + " ").join(formatted_portion)
-    query = ("\
-             SELECT * \
-             FROM \
-                (SELECT * FROM author NATURAL JOIN wrote as a WHERE " + author_params + ") as X\
-                NATURAL JOIN \
-                (paper NATURAL JOIN keywords  as t WHERE " + query_params  + ") as Y \
-            Group by paper_id\
-            ")
+            formatted_portion = [table + "." + attribute + " " + equality + " %s"] * len(value)
+            joined_Operator = query["boolean"] if query["boolean"] != "None" else "AND"
+            query_params += (" " + joined_Operator + " ").join(formatted_portion)
+    if author_params != "":
+        first_join += " WHERE " + author_params
+    first_join += " GROUP BY w.paper_id"
+    # I really tried to make this readable
+    query = ("SELECT * FROM " + \
+             "({}) as X ".format(first_join) +\
+             "NATURAL JOIN " +\
+             "(SELECT * FROM paper p NATURAL JOIN keywords t " + \
+                "WHERE {}) as Y".format(query_params))
     print(query)
     return query
 

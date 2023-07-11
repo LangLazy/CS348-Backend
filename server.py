@@ -19,14 +19,8 @@ def find_keyword_articles():
         app.logger.error("Invalid Request type made on /keywords")
         return "<p>Invalid Request</p>"
     payload = request.get_json()
-    try:
-        queryParams = payload['query']
-    except Exception as e:
-        app.logger.error("Query Request enountered an error for parameters")
-        app.logger.error(e)
-        return "<p>Incomplete payload recieved for query</p>"
-    queryParams = json.loads(queryParams)
-    data = query_keywords(queryParams)
+    # TODO: validate that the payload is correct type
+    data = query_keywords(payload)
     return data
 
 @app.route("/signup", methods=['POST'])
