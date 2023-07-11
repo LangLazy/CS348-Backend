@@ -61,7 +61,8 @@ def generate_keyword_query_string(queryParams):
             elif query["field"] == "Title": 
                 attribute = "title"
                 table = "p"
-            if query["boolean"] == "AND" or query["boolean"] == "NOT":
+            if query_params == "": pass
+            elif query["boolean"] == "AND" or query["boolean"] == "NOT":
                 query_params += " AND "
             elif query["boolean"] == "OR":
                 query_params += " OR "
@@ -76,8 +77,10 @@ def generate_keyword_query_string(queryParams):
     query = ("SELECT * FROM " + \
              "({}) as X ".format(first_join) +\
              "NATURAL JOIN " +\
-             "(SELECT * FROM paper p NATURAL JOIN keywords t " + \
-                "WHERE {}) as Y".format(query_params))
+             "(SELECT paper_id, title, year, fos_name, n_citation, page_start, " +\
+                "page_end, doc_type, lang, vol, issue, isbn, doi, url, abstract, " +\
+                "group_concat(word) as Keywords FROM paper p NATURAL JOIN keywords t " +\
+                "WHERE {} GROUP BY paper_id) as Y".format(query_params))
     print(query)
     return query
 
