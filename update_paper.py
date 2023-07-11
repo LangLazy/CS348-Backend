@@ -5,12 +5,15 @@ def generate_query(paperid, **kwargs):
         return
     query = ["UPDATE paper", "SET"]
     pieces = []
+    args = []
     for k,v in kwargs.items():
-        pieces.append(f"{k} = {v}")
+        pieces.append(f"{k} = %s")
+        args.append(v)
     query.append(' , '.join(pieces))
     query.append("WHERE paper_id = %s")
     full = (" ".join(query))
     print(full)
+    args.append(paperid)
     return full
 
 def update_paper(paperid, **kwargs):
