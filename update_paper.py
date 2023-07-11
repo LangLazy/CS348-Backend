@@ -9,7 +9,9 @@ def generate_query(paperid, **kwargs):
         pieces.append(f"{k} = {v}")
     query.append(' , '.join(pieces))
     query.append("WHERE paper_id = %s")
-    return (" ".join(query))
+    full = (" ".join(query))
+    print(full)
+    return full
 
 def update_paper(paperid, **kwargs):
     db = database()
