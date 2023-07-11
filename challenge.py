@@ -30,3 +30,8 @@ def process_result(winner, loser):
     update_author_elo(winner, new_winner_elo)
     update_author_elo(loser, new_loser_elo)
     return f"Winner {winner} updates elo from {winner_elo} to {new_winner_elo}. Loser {loser} updates elo from {loser_elo} to {new_loser_elo}"
+
+def get_leaderboard():
+    db = database()
+    query = ("SELECT * FROM author ORDER BY author_elo ASC LIMIT 100")
+    return db.execute(query,[])

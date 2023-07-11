@@ -7,7 +7,7 @@ from create_user import insert_user
 from add_paper import publish_paper
 from get_citations import find_citations
 from verify_login import verify_login
-from challenge import get_challenge, process_result
+from challenge import get_challenge, process_result, get_leaderboard
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -141,4 +141,10 @@ def process_challenge_result():
         return "Malformatted json body"
     res = process_result(winner, loser)
     return res
+
+@app.route("/leaderboard", methods=["GET"])
+@cross_origin()
+def get_leaderboard():
+    return get_leaderboard()
+
 
