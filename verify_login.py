@@ -21,4 +21,4 @@ def verify_login(email, password):
     except Exception as e:
         log.error("I have failed brother")
         log.debug(e)
-        return None
+        return "Server Error"
