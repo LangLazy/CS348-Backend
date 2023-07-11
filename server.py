@@ -155,8 +155,9 @@ def handle_paper_update():
         payload = request.get_json()
         pid = payload['paper_id']
         del payload['paper_id']
-        return update_paper(payload["paper_id"], **payload)
-    except:
+        return update_paper(pid, **payload)
+    except Exception as e:
+        print(e)
         return "<p>Invalid format of JSON body passed<p>"
 
 
