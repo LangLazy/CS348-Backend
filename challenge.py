@@ -19,11 +19,11 @@ def get_challenge():
 
 def process_result(winner, loser):
     eloLeague = Elo(k = 20)
-    winner_elo = get_author_elo(winner)[0]
-    loser_elo = get_author_elo(loser)[0]
+    winner_elo = get_author_elo(winner)[0][0]
+    loser_elo = get_author_elo(loser)[0][0]
     eloLeague.addPlayer(winner, rating = winner_elo)
     eloLeague.addPlayer(loser, rating = loser_elo)
-    eloLeague.gameOver(winner = winner, loser = loser)
+    eloLeague.gameOver(winner = winner, loser = loser, winnerHome=0)
     new_winner_elo = eloLeague.ratingDict[winner]
     new_loser_elo = eloLeague.ratingDict[loser]
     update_author_elo(winner, new_winner_elo)

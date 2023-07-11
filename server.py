@@ -7,7 +7,7 @@ from create_user import insert_user
 from add_paper import publish_paper
 from get_citations import find_citations
 from verify_login import verify_login
-from challenge import get_challenge, update_author_elo
+from challenge import get_challenge, process_result
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -139,5 +139,6 @@ def process_challenge_result():
         loser = payload['loser']
     except:
         return "Malformatted json body"
-    return update_author_elo(winner, loser)
+    res = process_result(winner, loser)
+    return res
 
