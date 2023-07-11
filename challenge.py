@@ -33,5 +33,5 @@ def process_result(winner, loser):
 
 def get_leaderboard():
     db = database()
-    query = ("SELECT * FROM author ORDER BY author_elo ASC LIMIT 100")
+    query = ("SELECT * FROM author ORDER BY author_elo DESC LIMIT 100")
     return db.execute(query,[])

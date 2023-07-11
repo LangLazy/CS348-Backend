@@ -144,7 +144,7 @@ def process_challenge_result():
 
 @app.route("/leaderboard", methods=["GET"])
 @cross_origin()
-def get_leaderboard():
+def generate_leaderboard():
     return get_leaderboard()
 
 
