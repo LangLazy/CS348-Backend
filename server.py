@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import hashlib
+import json
 
 from query_keywords import query_keywords
 from create_user import insert_user
@@ -11,14 +12,15 @@ from verify_login import verify_login
 app = Flask(__name__)
 cors = CORS(app)
 
-@app.route("/keywords/<keywords>", methods=['GET'])
+@app.route("/keywords", methods=['POST'])
 @cross_origin()
-def find_keyword_articles(keywords):
-    if request.method != 'GET':
+def find_keyword_articles():
+    if request.method != 'POST':
         app.logger.error("Invalid Request type made on /keywords")
         return "<p>Invalid Request</p>"
-    keywords = list(keywords.split(","))
-    data = query_keywords(keywords)
+    payload = request.get_json()
+    # TODO: validate that the payload is correct type
+    data = query_keywords(payload)
     return data
 
 @app.route("/signup", methods=['POST'])
