@@ -12,7 +12,6 @@ def generate_query(paperid, **kwargs):
     query.append(' , '.join(pieces))
     query.append("WHERE paper_id=%s")
     full = (" ".join(query))
-    print(full)
     args.append(paperid)
     return (full,args)
 
