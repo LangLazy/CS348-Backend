@@ -24,8 +24,8 @@ def process_result(winner, loser):
     eloLeague.addPlayer(winner, rating = winner_elo)
     eloLeague.addPlayer(loser, rating = loser_elo)
     eloLeague.gameOver(winner = winner, loser = loser, winnerHome=0)
-    new_winner_elo = eloLeague.ratingDict[winner]
-    new_loser_elo = eloLeague.ratingDict[loser]
+    new_winner_elo = int(eloLeague.ratingDict[winner])
+    new_loser_elo = int(eloLeague.ratingDict[loser])
     update_author_elo(winner, new_winner_elo)
     update_author_elo(loser, new_loser_elo)
     return f"Winner {winner} updates elo from {winner_elo} to {new_winner_elo}. Loser {loser} updates elo from {loser_elo} to {new_loser_elo}"
