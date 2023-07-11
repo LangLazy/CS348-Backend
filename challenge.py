@@ -11,7 +11,7 @@ def update_author_elo(author, elo):
     db = database()
     print(author)
     query = ("UPDATE author SET author_elo = %s WHERE author_id = %s")
-    db.execute(query, [author, elo], expectoutput=False)
+    db.execute(query, [elo, author], expectoutput=False)
 
 def get_challenge():
     db = database()
