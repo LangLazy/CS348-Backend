@@ -8,6 +8,7 @@ from add_paper import publish_paper
 from get_citations import find_citations
 from verify_login import verify_login
 from challenge import get_challenge, process_result, get_leaderboard
+from update_paper import update_paper
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -145,6 +146,12 @@ def process_challenge_result():
 @app.route("/leaderboard", methods=["GET"])
 @cross_origin()
 def generate_leaderboard():
+    return get_leaderboard()
+
+@app.route("/update", methods=["POST"])
+@cross_origin()
+def handle_paper_update():
+    payload = request.get_json()
     return get_leaderboard()
 
 
