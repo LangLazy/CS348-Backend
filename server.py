@@ -151,8 +151,12 @@ def generate_leaderboard():
 @app.route("/update", methods=["POST"])
 @cross_origin()
 def handle_paper_update():
-    payload = request.get_json()
-    print(payload)
-    return update_paper()
+    try:
+        payload = request.get_json()
+        pid = payload['payload_id']
+        del payload['payload_id']
+        return update_paper(payload["paper_id"], **payload)
+    except:
+        return "<p>Invalid format of JSON body passed<p>"
 
 
