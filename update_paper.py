@@ -16,7 +16,10 @@ def generate_query(paperid, **kwargs):
     return (full,args)
 
 def update_paper(paperid, **kwargs):
-    db = database()
-    query, args = generate_query(paperid, **kwargs)
-    db.execute(query, args, False)
-    return "Success"
+    try:
+        db = database()
+        query, args = generate_query(paperid, **kwargs)
+        db.execute(query, args, False)
+        return "Success"
+    except:
+        return "no exist"
