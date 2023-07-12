@@ -32,6 +32,8 @@ class database:
             logging.info("QUERY RESULT")
             logging.info(results)
             return results
+        else:
+            return cursor.rowcount
     
     def get_random(self, num_random):
         cursor = self.db.cursor()

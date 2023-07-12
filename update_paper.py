@@ -19,7 +19,9 @@ def update_paper(paperid, **kwargs):
     try:
         db = database()
         query, args = generate_query(paperid, **kwargs)
-        db.execute(query, args, False)
+        numrows = db.execute(query, args, False)
+        if numrows == 0:
+            return "no exist"
         return "Success"
     except:
         return "no exist"
