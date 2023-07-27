@@ -73,6 +73,11 @@ def generate_keyword_query_string(queryParams):
     if author_params != "":
         first_join += " WHERE " + author_params
     first_join += " GROUP BY w.paper_id"
+
+    where_string = ""
+    if query_params != "":
+        where_string = "WHERE {} ".format(query_params)
+
     # I really tried to make this readable
     query = ("SELECT * FROM " + \
              "({}) as X ".format(first_join) +\
@@ -80,7 +85,7 @@ def generate_keyword_query_string(queryParams):
              "(SELECT paper_id, title, year, fos_name, n_citation, page_start, " +\
                 "page_end, doc_type, lang, vol, issue, isbn, doi, url, abstract, " +\
                 "group_concat(word) as Keywords FROM paper p NATURAL JOIN keywords t " +\
-                "WHERE {} GROUP BY paper_id) as Y".format(query_params))
+                where_string + " GROUP BY paper_id) as Y")
     print(query)
     return query
 
