@@ -1,24 +1,28 @@
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import hashlib
+import json
 
 from query_keywords import query_keywords
 from create_user import insert_user
 from add_paper import publish_paper
 from get_citations import find_citations
 from verify_login import verify_login
+from challenge import get_challenge, process_result, get_leaderboard
+from update_paper import update_paper
 
 app = Flask(__name__)
 cors = CORS(app)
 
-@app.route("/keywords/<keywords>", methods=['GET'])
+@app.route("/keywords", methods=['POST'])
 @cross_origin()
-def find_keyword_articles(keywords):
-    if request.method != 'GET':
+def find_keyword_articles():
+    if request.method != 'POST':
         app.logger.error("Invalid Request type made on /keywords")
         return "<p>Invalid Request</p>"
-    keywords = list(keywords.split(","))
-    data = query_keywords(keywords)
+    payload = request.get_json()
+    # TODO: validate that the payload is correct type
+    data = query_keywords(payload)
     return data
 
 @app.route("/signup", methods=['POST'])
@@ -123,3 +127,39 @@ def create_paper():
     if not response:
         return "<p> Internal Server Error <p>"
     return response
+
+@app.route("/challenge", methods=["GET"])
+@cross_origin()
+def propose_challenge():
+    return get_challenge()
+
+@app.route("/result", methods=["POST"])
+@cross_origin()
+def process_challenge_result():
+    payload = request.get_json()
+    try:
+        winner = payload['winner']
+        loser = payload['loser']
+    except:
+        return "Malformatted json body"
+    res = process_result(winner, loser)
+    return res
+
+@app.route("/leaderboard", methods=["GET"])
+@cross_origin()
+def generate_leaderboard():
+    return get_leaderboard()
+
+@app.route("/update", methods=["POST"])
+@cross_origin()
+def handle_paper_update():
+    try:
+        payload = request.get_json()
+        pid = payload['paper_id']
+        del payload['paper_id']
+        return update_paper(pid, **payload)
+    except Exception as e:
+        print(e)
+        return "<p>Invalid format of JSON body passed<p>"
+
+

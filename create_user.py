@@ -30,4 +30,4 @@ def insert_user(name, email, hashedpass):
     except Exception as e:
         log.error("I have failed brother")
         log.debug(e)
-        return None
+        return "failure"

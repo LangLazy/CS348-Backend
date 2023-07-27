@@ -1,0 +1,10 @@
+POST http://54.242.252.72/update HTTP/1.1
+content-type: application/json
+
+{
+    "paper_id":"14",
+    "title": "gamer",
+    "year": 45,
+    "fos_name": "gammmmmm",
+    "abstract": "well i mean i really do enjoy **** but like when I **** they always go like ***** like bro *****?????"
+}
