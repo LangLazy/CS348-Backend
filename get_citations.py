@@ -11,10 +11,13 @@ def find_citations(root_ID):
             FROM HasCited HC, citations
             WHERE HC.cites_paper_id = citations.paper_id
             ))
-            SELECT Distinct x.paper_id, x.cites_paper_id, x.title, c.title
-            FROM (HasCited LEFT OUTER JOIN paper as p
-            ON HasCited.cites_paper_id = p.paper_id) x
-            LEFT OUT JOIN paper c
+            SELECT Distinct x.paper_id, x.cites_paper_id, x.title as cited_title, c.title
+            FROM (
+                SELECT HasCited.paper_id, HasCited.cites_paper_id, p.title 
+                FROM HasCited LEFT OUTER JOIN paper as p
+                ON HasCited.cites_paper_id = p.paper_id
+            ) x
+            LEFT OUTER JOIN paper c
             ON x.paper_id = c.paper_id
             '''
     result = db.execute(query, [root_ID])
