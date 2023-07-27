@@ -11,7 +11,7 @@ def find_citations(root_ID):
             FROM HasCited HC, citations
             WHERE HC.cites_paper_id = citations.paper_id
             ))
-            SELECT Distinct HasCited.cites_paper_id, p.title, p.n_citation
+            SELECT Distinct HasCited.paper_id, HasCited.cites_paper_id, p.title, p.n_citation
             FROM HasCited LEFT OUTER JOIN paper as p
             ON HasCited.cites_paper_id = p.paper_id
             '''
