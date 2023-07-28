@@ -18,8 +18,8 @@ def insert_user(name, email, hashedpass):
             return "Invalid email provided, already exists!"
 
         new_uuid = uuid.uuid4().hex
-        query = "Insert into author(author_id, author_name) VALUES(%s, %s)"
-        db.execute(query, [new_uuid, name], False)
+        query = "Insert into author(author_id, author_name, elo) VALUES(%s, %s, %s)"
+        db.execute(query, [new_uuid, name, 1200], False)
         log.debug("DONE 2")
 
         query = "Insert into user(author_id, email, user_pass) VALUES(%s, %s, %s)"
