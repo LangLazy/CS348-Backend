@@ -3,14 +3,14 @@ from elosports.elo import Elo
 
 def get_author_elo(author):
     db = database()
-    query = ("SELECT author_elo FROM author WHERE author_id = %s")
+    query = ("SELECT elo FROM author WHERE author_id = %s")
     output = db.execute(query, [author])
     return output
 
 def update_author_elo(author, elo):
     db = database()
     print(author)
-    query = ("UPDATE author SET author_elo = %s WHERE author_id = %s")
+    query = ("UPDATE author SET elo = %s WHERE author_id = %s")
     db.execute(query, [elo, author], expectoutput=False)
 
 def get_challenge():
@@ -33,5 +33,5 @@ def process_result(winner, loser):
 
 def get_leaderboard():
     db = database()
-    query = ("SELECT * FROM author ORDER BY author_elo DESC LIMIT 100")
+    query = ("SELECT * FROM author ORDER BY elo DESC LIMIT 100")
     return db.execute(query,[])
