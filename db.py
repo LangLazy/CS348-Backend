@@ -18,7 +18,7 @@ class database:
             user=USER,
             password=PASSWORD,
             port=PORT,
-            database="citationmonkeydb"
+            database="CS348"
         )
         db.autocommit = True
         self.db = db
